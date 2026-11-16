@@ -8,7 +8,8 @@ import {
   AnalyticsData,
 } from '../types';
 
-const API_BASE = '/api/v1';
+const ENV_BASE = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE = ENV_BASE ? `${ENV_BASE.replace(/\/$/, '')}/api/v1` : '/api/v1';
 
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${url}`, {
