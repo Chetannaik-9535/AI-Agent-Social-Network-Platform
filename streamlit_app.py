@@ -1,6 +1,6 @@
 """
-NexusAgent: AI Agent Social Network Platform
-Streamlit Cloud Deployment Edition
+NexusAgent: Enterprise AI Agent Social Network Platform
+Production Streamlit Application
 """
 
 import os
@@ -35,28 +35,182 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for dark enterprise SaaS aesthetic
+# Comprehensive Enterprise SaaS CSS
 st.markdown("""
 <style>
-    .main-header {
-        font-size: 2.2rem;
-        font-weight: 700;
-        background: linear-gradient(90deg, #60A5FA, #A78BFA, #F472B6);
+    /* Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    code, pre {
+        font-family: 'JetBrains Mono', monospace !important;
+    }
+
+    /* Background & Container */
+    .stApp {
+        background: radial-gradient(circle at top right, #111827 0%, #0B0F19 100%);
+        color: #F8FAFC;
+    }
+
+    /* Top Navigation Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 10px;
+        background-color: transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 8px 0;
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px;
+        padding: 10px 20px;
+        background-color: #111827;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #94A3B8;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: #1E293B;
+        color: #F8FAFC;
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%) !important;
+        color: #FFFFFF !important;
+        border-color: #60A5FA !important;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Enterprise Hero Banner */
+    .hero-banner {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        padding: 24px 28px;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(12px);
+    }
+    .hero-title {
+        font-size: 2.1rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        background: linear-gradient(90deg, #60A5FA 0%, #A78BFA 50%, #F472B6 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 0.2rem;
+        margin-bottom: 6px;
     }
-    .sub-header {
-        font-size: 1rem;
+    .hero-subtitle {
+        font-size: 0.95rem;
         color: #94A3B8;
-        margin-bottom: 1.5rem;
+        line-height: 1.5;
     }
-    .badge-card {
-        background-color: #1E293B;
-        border: 1px solid #334155;
-        border-radius: 8px;
-        padding: 1rem;
-        margin-bottom: 0.8rem;
+
+    /* Badges & Pills */
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+    }
+    .badge-blue { background: rgba(59, 130, 246, 0.15); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-green { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-red { background: rgba(239, 68, 68, 0.15); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge-purple { background: rgba(168, 85, 247, 0.15); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.3); }
+    .badge-orange { background: rgba(249, 115, 22, 0.15); color: #FB923C; border: 1px solid rgba(249, 115, 22, 0.3); }
+
+    /* Pipeline Stage Cards */
+    .pipeline-stage {
+        background: #111827;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 18px;
+        height: 100%;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    .stage-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #94A3B8;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+    }
+    .stage-metric {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #F8FAFC;
+        margin: 4px 0 8px 0;
+    }
+
+    /* Candidate Decision Card */
+    .candidate-card {
+        background: #111827;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .candidate-card:hover {
+        transform: translateX(4px);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    .candidate-passed {
+        border-left: 4px solid #10B981 !important;
+        background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, #111827 100%);
+    }
+    .candidate-dropped {
+        border-left: 4px solid #EF4444 !important;
+        background: linear-gradient(90deg, rgba(239, 68, 68, 0.05) 0%, #111827 100%);
+        opacity: 0.85;
+    }
+
+    /* Autonomous AI Reply Box */
+    .ai-reply-box {
+        background: linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-top: 12px;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+    }
+
+    /* Primary Action Buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
+        color: #FFFFFF !important;
+        border: 1px solid #3B82F6 !important;
+        border-radius: 10px !important;
+        font-weight: 700 !important;
+        font-size: 0.95rem !important;
+        padding: 12px 24px !important;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
+    }
+    .stButton > button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5) !important;
+        border-color: #60A5FA !important;
+    }
+
+    /* Sidebar Styling */
+    section[data-testid="stSidebar"] {
+        background-color: #0A0E1A !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -160,10 +314,10 @@ def seed_demo_data_if_needed():
 
 seed_demo_data_if_needed()
 
-# Sidebar: Platform Diagnostics & Controls
+# Sidebar: System Diagnostics
 with st.sidebar:
     st.markdown("### 🤖 NexusAgent Engine")
-    st.markdown("Autonomous B2B Event Network & 3-Stage Relevance Routing")
+    st.caption("Autonomous B2B Event Network Architecture")
     st.divider()
 
     db = SessionLocal()
@@ -173,18 +327,18 @@ with st.sidebar:
     comment_count = db.query(Comment).count()
     db.close()
 
-    st.markdown("**Platform Status**")
-    c1, c2 = st.columns(2)
-    c1.metric("Active Agents", agent_count)
-    c2.metric("Total Posts", post_count)
-    c3, c4 = st.columns(2)
-    c3.metric("Webhooks", notif_count)
-    c4.metric("AI Replies", comment_count)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Agents", agent_count)
+        st.metric("Webhooks", notif_count)
+    with col2:
+        st.metric("Posts", post_count)
+        st.metric("AI Replies", comment_count)
 
     st.divider()
     st.markdown("**Routing Configuration**")
     global_threshold = st.slider(
-        "Global Relevance Threshold",
+        "Relevance Threshold (Stage 3)",
         min_value=0.50,
         max_value=0.95,
         value=0.75,
@@ -192,20 +346,37 @@ with st.sidebar:
         help="Candidates scoring above this threshold pass Stage 3 and receive signed webhook notifications."
     )
 
-    st.markdown("**Security Controls**")
-    st.caption("🔒 HMAC-SHA256 Signatures: Enabled")
-    st.caption("🛡️ Prompt Injection Containment: Active")
-    st.caption("⚡ Asynchronous Dispatch: Active")
+    st.markdown("**Active Security Protocols**")
+    st.markdown("""
+    - <span class="badge badge-green">ACTIVE</span> HMAC-SHA256 Signatures
+    - <span class="badge badge-blue">ACTIVE</span> XML Injection Guard
+    - <span class="badge badge-purple">ACTIVE</span> Cosine ANN Vector Search
+    """, unsafe_allow_html=True)
 
     st.divider()
-    if st.button("🔄 Reset Demo Agents & Cache", use_container_width=True):
+    if st.button("🔄 Reset Demo Agents & State", use_container_width=True):
         seed_demo_data_if_needed()
         st.toast("Demo data initialized successfully!")
         st.rerun()
 
-# Header
-st.markdown('<div class="main-header">NexusAgent: AI Agent Social Network</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">B2B Event-Driven Platform with 3-Stage Semantic Relevance Routing & Autonomous Agent Responses</div>', unsafe_allow_html=True)
+# Enterprise Hero Header
+st.markdown("""
+<div class="hero-banner">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+            <div class="hero-title">NexusAgent: AI Agent Social Network</div>
+            <div class="hero-subtitle">
+                Autonomous B2B Event-Driven Platform with <strong>3-Stage Semantic Relevance Routing</strong> & Autonomous LLM Proposal Synthesis
+            </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <span class="badge badge-blue">FastAPI Core</span>
+            <span class="badge badge-green">pgvector / ANN</span>
+            <span class="badge badge-purple">HMAC-SHA256</span>
+        </div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # Main Navigation Tabs
 tab_sandbox, tab_feed, tab_agents, tab_webhooks, tab_analytics = st.tabs([
@@ -221,9 +392,16 @@ tab_sandbox, tab_feed, tab_agents, tab_webhooks, tab_analytics = st.tabs([
 # -------------------------------------------------------------------------------------------------
 with tab_sandbox:
     st.markdown("### 🧪 Relevance Routing Engine & Live Simulator")
-    st.info(
-        "**Core Interview Requirement**: Swiggy's *'5% discount on all food deliveries during Diwali'* "
-        "must be routed to **PhonePe** and **HDFC Bank** (fintech/cashback interests), while **Bajaj Auto** (automotive) must be dropped."
+    st.markdown(
+        """
+        <div style="background: rgba(30, 58, 138, 0.2); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 10px; padding: 14px 18px; margin-bottom: 20px;">
+            <strong style="color: #60A5FA;">Interview Requirement Scenario:</strong><br>
+            Swiggy publishes <em>"5% discount on all food deliveries during Diwali"</em>.<br>
+            The engine evaluates all agents: <strong>PhonePe</strong> and <strong>HDFC Bank</strong> must be identified as relevant (payments, cashback, dining cards). 
+            <strong>Bajaj Auto</strong> (automotive mobility) must be dropped as irrelevant.
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
     db = SessionLocal()
@@ -232,16 +410,16 @@ with tab_sandbox:
     db.close()
 
     preset = st.selectbox(
-        "Select a Scenario Preset or Create Custom Post:",
+        "Choose an Scenario Preset:",
         options=[
-            "Swiggy Diwali Offer (Demo Scenario)",
+            "Swiggy Diwali Offer (Interview Scenario)",
             "HDFC Bank Festive Credit Card Promo",
             "Bajaj Auto Commercial EV Fleet Announcement",
-            "Custom Post"
+            "Custom Custom Post"
         ]
     )
 
-    if preset == "Swiggy Diwali Offer (Demo Scenario)":
+    if preset == "Swiggy Diwali Offer (Interview Scenario)":
         default_author = "Swiggy"
         default_title = "5% Discount on all food deliveries during Diwali"
         default_content = "Celebrate Diwali with Swiggy! Enjoy a flat 5% instant discount across all restaurant orders. Looking for digital payment partners, UPI cashback integrations, and bank card rewards to co-promote this festive season."
@@ -268,13 +446,13 @@ with tab_sandbox:
     with col_a2:
         post_title = st.text_input("Post Title:", value=default_title)
 
-    post_content = st.text_area("Post Content:", value=default_content, height=100)
+    post_content = st.text_area("Post Content:", value=default_content, height=110)
 
     if st.button("🚀 Execute 3-Stage Routing Engine", type="primary", use_container_width=True):
         if not post_title.strip() or not post_content.strip():
             st.error("Please provide both title and content.")
         else:
-            with st.spinner("Executing 3-Stage Pipeline (SQL Filter ➔ Vector ANN ➔ Cross-Encoder Judge)..."):
+            with st.spinner("Executing Stage 1 (SQL Guardrails) ➔ Stage 2 (Vector ANN) ➔ Stage 3 (Cross-Encoder Judge)..."):
                 db = SessionLocal()
                 try:
                     author = agent_map[author_company]
@@ -297,80 +475,115 @@ with tab_sandbox:
                         custom_threshold=global_threshold
                     ))
 
-                    # Dispatch notifications and autonomous responses
+                    # Dispatch Webhook Notifications & Autonomous LLM Responses
                     deliveries = run_async(notification_service.dispatch_notifications(
                         db=db,
                         post=post,
                         routing_result=routing_result
                     ))
 
-                    st.success("Routing Pipeline Execution Completed!")
-
-                    # Render 3-Stage Visualizer
-                    st.markdown("#### 🔍 Pipeline Execution Stages")
+                    st.markdown("### 📊 Pipeline Execution Telemetry")
                     s1, s2, s3 = st.columns(3)
 
                     with s1:
-                        st.markdown("**Stage 1: SQL Filter**")
-                        st.markdown(f"- Total Evaluated: **{routing_result.total_candidates}**")
-                        st.markdown(f"- Excluded Author: **{author.company_name}**")
-                        st.markdown(f"- Eligible Candidates: **{routing_result.stage1_eligible}**")
-                        st.caption("Filters inactive agents, authors, and blocked industry rules.")
+                        st.markdown(f"""
+                        <div class="pipeline-stage" style="border-left: 4px solid #3B82F6;">
+                            <div class="stage-header">Stage 1: SQL Filter</div>
+                            <div class="stage-metric">{routing_result.stage1_eligible} / {routing_result.total_candidates}</div>
+                            <p style="color: #94A3B8; font-size: 0.82rem; margin: 0;">
+                                Excluded author (<strong>{author.company_name}</strong>), inactive agents, and blocked industry rules.
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
 
                     with s2:
-                        st.markdown("**Stage 2: Dense Vector ANN**")
-                        st.markdown(f"- Top Candidates: **{routing_result.stage2_vector_matches}**")
-                        st.markdown(f"- Dimension: **1536-dim**")
-                        st.markdown(f"- Metric: **Cosine Similarity**")
-                        st.caption("Performs high-recall semantic vector retrieval.")
+                        st.markdown(f"""
+                        <div class="pipeline-stage" style="border-left: 4px solid #8B5CF6;">
+                            <div class="stage-header">Stage 2: Vector ANN Cosine</div>
+                            <div class="stage-metric">{routing_result.stage2_vector_matches} Candidates</div>
+                            <p style="color: #94A3B8; font-size: 0.82rem; margin: 0;">
+                                High-recall semantic retrieval using <strong>1536-dimensional</strong> cosine similarity.
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
 
                     with s3:
-                        st.markdown("**Stage 3: Cross-Encoder Judge**")
-                        st.markdown(f"- Active Threshold: **{routing_result.threshold_applied:.2f}**")
-                        st.markdown(f"- Routed Recipients: **{routing_result.stage3_notified}**")
-                        dropped = routing_result.total_candidates - 1 - routing_result.stage3_notified
-                        st.markdown(f"- Dropped Count: **{max(0, dropped)}**")
-                        st.caption("Deep contextual reranking & noise suppression.")
+                        st.markdown(f"""
+                        <div class="pipeline-stage" style="border-left: 4px solid #10B981;">
+                            <div class="stage-header">Stage 3: Cross-Encoder Judge</div>
+                            <div class="stage-metric">{routing_result.stage3_notified} Approved</div>
+                            <p style="color: #94A3B8; font-size: 0.82rem; margin: 0;">
+                                Deep relevance evaluation against threshold <strong>≥ {routing_result.threshold_applied:.2f}</strong>.
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
 
-                    st.divider()
+                    st.markdown("---")
 
-                    # Detailed Candidates Evaluation Table
-                    st.markdown("#### 📋 Candidate Agent Decision Matrix")
-                    table_rows = []
+                    # Candidate Decisions Cards
+                    st.markdown("#### 🎯 Candidate Evaluation & Decision Matrix")
+
                     for trace in routing_result.routing_traces:
-                        table_rows.append({
-                            "Agent / Company": trace.target_company_name,
-                            "Industry": trace.target_industry,
-                            "Vector Score": f"{trace.vector_score:.4f}",
-                            "Stage 3 Score": f"{trace.rerank_score:.4f}",
-                            "Decision": "✅ NOTIFIED" if trace.final_decision else "❌ DROPPED",
-                            "Reason": "Threshold satisfied (> 0.75)" if trace.final_decision else (trace.rejection_reason or trace.stage1_reason or "Below threshold")
-                        })
-                    st.dataframe(pd.DataFrame(table_rows), use_container_width=True)
+                        card_class = "candidate-passed" if trace.final_decision else "candidate-dropped"
+                        badge_html = '<span class="badge badge-green">✅ NOTIFIED</span>' if trace.final_decision else '<span class="badge badge-red">❌ DROPPED</span>'
+                        reason_text = "Satisfies relevance threshold (> 0.75)" if trace.final_decision else (trace.rejection_reason or trace.stage1_reason or "Score below threshold")
 
-                    # Explicit Callout for Swiggy Diwali Offer Scenario
+                        st.markdown(f"""
+                        <div class="candidate-card {card_class}">
+                            <div style="flex: 2;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF;">{trace.target_company_name}</span>
+                                    <span style="color: #94A3B8; font-size: 0.85rem;">• {trace.target_industry}</span>
+                                </div>
+                                <div style="color: #CBD5E1; font-size: 0.85rem; margin-top: 4px;">{reason_text}</div>
+                            </div>
+                            <div style="flex: 1; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #94A3B8; text-transform: uppercase;">Vector Cosine</div>
+                                <div style="font-size: 1rem; font-weight: 700; color: #60A5FA;">{trace.vector_score:.4f}</div>
+                            </div>
+                            <div style="flex: 1; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #94A3B8; text-transform: uppercase;">Stage 3 Score</div>
+                                <div style="font-size: 1.15rem; font-weight: 800; color: {'#34D399' if trace.final_decision else '#F87171'};">{trace.rerank_score:.4f}</div>
+                            </div>
+                            <div style="flex: 1; text-align: right;">
+                                {badge_html}
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    # Interview Requirement Callout
                     if "Diwali" in post_title or "Diwali" in post_content:
                         routed_names = [t.target_company_name for t in routing_result.routing_traces if t.final_decision]
                         dropped_names = [t.target_company_name for t in routing_result.routing_traces if not t.final_decision]
                         if "PhonePe" in routed_names and "HDFC Bank" in routed_names and "Bajaj Auto" in dropped_names:
                             st.balloons()
-                            st.info(
-                                "🎉 **INTERVIEW TEST VERIFIED!**\n\n"
-                                "- **PhonePe** received the post (Interested in UPI, food delivery discounts, checkout payments).\n"
-                                "- **HDFC Bank** received the post (Interested in dining credit cards and merchant reward programs).\n"
-                                "- **Bajaj Auto** was rejected (Automotive interests have zero affinity with food festival discounts)."
-                            )
+                            st.markdown("""
+                            <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 10px; padding: 16px; margin: 20px 0;">
+                                <h4 style="color: #34D399; margin: 0 0 8px 0;">🎉 INTERVIEW SCENARIO VERIFIED!</h4>
+                                <ul style="color: #E2E8F0; margin: 0; padding-left: 20px; font-size: 0.95rem;">
+                                    <li><strong>PhonePe</strong> received notification (high affinity with UPI payments, food merchant cashback).</li>
+                                    <li><strong>HDFC Bank</strong> received notification (high affinity with dining credit cards and merchant rewards).</li>
+                                    <li><strong>Bajaj Auto</strong> was explicitly dropped (automotive mobility interest has zero affinity with food festival discounts).</li>
+                                </ul>
+                            </div>
+                            """, unsafe_allow_html=True)
 
-                    # Show Autonomous Comments Generated in Response
+                    # Show Autonomous LLM Responses
                     comments = db.query(Comment).filter(Comment.post_id == post.id).all()
                     if comments:
                         st.markdown("#### 🤖 Autonomous AI Agent Responses")
                         for c in comments:
                             commenter = db.query(Agent).filter(Agent.id == c.author_agent_id).first()
-                            c_name = commenter.company_name if commenter else "Unknown Agent"
-                            with st.chat_message("assistant", avatar="⚡"):
-                                st.markdown(f"**{c_name} Agent**: {c.content}")
-                                st.caption(f"Generated via Autonomous LLM Responder | {c.created_at.strftime('%Y-%m-%d %H:%M:%S')}")
+                            c_name = commenter.company_name if commenter else "Agent"
+                            st.markdown(f"""
+                            <div class="ai-reply-box">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <span style="font-weight: 700; color: #818CF8; font-size: 0.95rem;">⚡ {c_name} Autonomous Agent</span>
+                                    <span style="color: #94A3B8; font-size: 0.75rem;">LLM Partner Proposal • {c.created_at.strftime('%H:%M:%S UTC')}</span>
+                                </div>
+                                <div style="color: #F8FAFC; font-size: 0.9rem; line-height: 1.5;">"{c.content}"</div>
+                            </div>
+                            """, unsafe_allow_html=True)
 
                 finally:
                     db.close()
@@ -391,20 +604,32 @@ with tab_feed:
             author_name = author.company_name if author else "Unknown Agent"
             industry = author.industry_category if author else "Corporate"
 
-            with st.container():
-                st.markdown(f"#### {p.title}")
-                st.caption(f"🏢 **{author_name}** • *{industry}* • Published: {p.created_at.strftime('%Y-%m-%d %H:%M')}")
-                st.write(p.content)
+            st.markdown(f"""
+            <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 20px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div>
+                        <span style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF;">{p.title}</span>
+                        <div style="color: #94A3B8; font-size: 0.85rem; margin-top: 2px;">
+                            🏢 <strong>{author_name}</strong> • <em>{industry}</em> • Published {p.created_at.strftime('%Y-%m-%d %H:%M')}
+                        </div>
+                    </div>
+                    <span class="badge badge-blue">Verified Post</span>
+                </div>
+                <div style="color: #E2E8F0; font-size: 0.95rem; line-height: 1.5; margin: 12px 0;">{p.content}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-                # Fetch and render comments for this post
-                comments = db.query(Comment).filter(Comment.post_id == p.id).order_by(Comment.created_at.asc()).all()
-                if comments:
-                    with st.expander(f"💬 View Autonomous Agent Comments ({len(comments)})", expanded=True):
-                        for c in comments:
-                            c_author = db.query(Agent).filter(Agent.id == c.author_agent_id).first()
-                            c_name = c_author.company_name if c_author else "Agent"
-                            st.markdown(f"- **{c_name}**: {c.content}")
-                st.divider()
+            comments = db.query(Comment).filter(Comment.post_id == p.id).order_by(Comment.created_at.asc()).all()
+            if comments:
+                with st.expander(f"💬 View Autonomous Agent Proposals ({len(comments)})", expanded=True):
+                    for c in comments:
+                        c_author = db.query(Agent).filter(Agent.id == c.author_agent_id).first()
+                        c_name = c_author.company_name if c_author else "Agent"
+                        st.markdown(f"""
+                        <div style="background: #1E293B; border-left: 3px solid #6366F1; border-radius: 8px; padding: 12px 16px; margin-bottom: 8px;">
+                            <strong style="color: #A5B4FC;">{c_name}</strong>: {c.content}
+                        </div>
+                        """, unsafe_allow_html=True)
     db.close()
 
 # -------------------------------------------------------------------------------------------------
@@ -412,7 +637,7 @@ with tab_feed:
 # -------------------------------------------------------------------------------------------------
 with tab_agents:
     st.markdown("### 🏢 Enterprise Corporate Agents")
-    st.markdown("Autonomous agents representing registered corporations with active vector profiles.")
+    st.markdown("Autonomous agents representing registered corporations with active 1536-dim vector profiles.")
 
     db = SessionLocal()
     agents = db.query(Agent).all()
@@ -420,26 +645,37 @@ with tab_agents:
     col_list, col_new = st.columns([3, 2])
 
     with col_list:
-        st.markdown("#### Registered Agents Directory")
+        st.markdown("#### Registered Corporate Agents")
         for a in agents:
-            with st.expander(f"🏢 {a.company_name} ({a.industry_category})", expanded=False):
-                st.markdown(f"**Description**: {a.description}")
-                st.markdown(f"**Interest Manifesto**: {a.interest_manifesto}")
-                st.markdown(f"**Webhook URL**: `{a.webhook_url}`")
-                st.markdown(f"**Trust Score**: `{a.trust_score}` | **Status**: `{'Active' if a.is_active else 'Inactive'}`")
+            st.markdown(f"""
+            <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF;">🏢 {a.company_name}</span>
+                    <span class="badge badge-purple">{a.industry_category}</span>
+                </div>
+                <p style="color: #94A3B8; font-size: 0.85rem; margin-bottom: 8px;">{a.description}</p>
+                <div style="background: #0B0F19; border-radius: 8px; padding: 10px; font-size: 0.82rem; color: #CBD5E1; margin-bottom: 8px;">
+                    <strong>Interest Manifesto:</strong> {a.interest_manifesto}
+                </div>
+                <div style="display: flex; gap: 12px; font-size: 0.75rem; color: #64748B;">
+                    <span>Trust Score: <strong>{a.trust_score}</strong></span>
+                    <span>Webhook: <code>{a.webhook_url}</code></span>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
     with col_new:
         st.markdown("#### ➕ Register New Agent")
         with st.form("register_agent_form"):
-            new_name = st.text_input("Company Name (e.g., Zomato, Reliance Retail):")
+            new_name = st.text_input("Company Name (e.g. Zomato, Reliance Retail):")
             new_industry = st.selectbox(
                 "Industry Category:",
                 options=["Food & Dining", "Payments & Fintech", "Banking & Financial Services", "E-Commerce & Retail", "Automotive & Mobility", "Healthcare", "Travel & Hospitality"]
             )
             new_desc = st.text_area("Company Description:")
-            new_manifesto = st.text_area("Interest Manifesto (Types of posts this agent cares about):")
+            new_manifesto = st.text_area("Interest Manifesto (What topics this agent cares about):")
             new_webhook = st.text_input("Webhook URL:", value="https://api.example.com/webhook")
-            submit_agent = st.form_submit_button("Register Agent")
+            submit_agent = st.form_submit_button("Register Agent & Compute Vector")
 
             if submit_agent:
                 if not new_name.strip() or not new_manifesto.strip():
@@ -471,7 +707,7 @@ with tab_agents:
                     )
                     db.add(pref)
                     db.commit()
-                    st.success(f"Agent for '{new_name}' registered successfully with 1536-dim embedding vector!")
+                    st.success(f"Agent for '{new_name}' registered successfully with 1536-dim embedding!")
                     st.rerun()
     db.close()
 
@@ -480,7 +716,7 @@ with tab_agents:
 # -------------------------------------------------------------------------------------------------
 with tab_webhooks:
     st.markdown("### 🔐 Cryptographic Webhook & Delivery Audit")
-    st.markdown("Every notification is dispatched with an HMAC-SHA256 signature (`X-Agent-Signature`) for zero-trust authenticity.")
+    st.markdown("Every notification is cryptographically sealed with an **HMAC-SHA256 signature** (`X-Agent-Signature`) for zero-trust delivery verification.")
 
     db = SessionLocal()
     deliveries = db.query(NotificationDelivery).order_by(NotificationDelivery.created_at.desc()).limit(25).all()
@@ -503,7 +739,7 @@ with tab_webhooks:
             })
         st.dataframe(pd.DataFrame(table_data), use_container_width=True)
 
-        st.markdown("#### 🔬 Inspect Selected Webhook Payload")
+        st.markdown("#### 🔬 Inspect Webhook Payload & Cryptographic Headers")
         if deliveries:
             selected_d = deliveries[0]
             st.json({
@@ -521,7 +757,7 @@ with tab_webhooks:
 # TAB 5: ENTERPRISE ANALYTICS & FUNNEL
 # -------------------------------------------------------------------------------------------------
 with tab_analytics:
-    st.markdown("### 📊 Platform Analytics & Routing Funnel")
+    st.markdown("### 📊 Platform Analytics & Funnel")
 
     db = SessionLocal()
     total_agents = db.query(Agent).count()
@@ -531,15 +767,15 @@ with tab_analytics:
     db.close()
 
     m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Total Agents", total_agents)
+    m1.metric("Registered Agents", total_agents)
     m2.metric("Total Posts Published", total_posts)
     m3.metric("Webhooks Dispatched", total_notifs)
-    m4.metric("AI Comments Generated", total_comments)
+    m4.metric("Autonomous Responses", total_comments)
 
     st.divider()
-    st.markdown("#### 🔻 3-Stage Routing Funnel Efficiency")
+    st.markdown("#### 🔻 3-Stage Routing Funnel Conversion")
     funnel_data = pd.DataFrame({
-        "Stage": ["Total Evaluations", "Stage 1 (SQL Candidates)", "Stage 2 (Vector ANN Matches)", "Stage 3 (Approved Webhooks)", "Autonomous Comments"],
+        "Pipeline Stage": ["Total Evaluations", "Stage 1 (SQL Candidates)", "Stage 2 (Vector Matches)", "Stage 3 (Approved Webhooks)", "Autonomous Comments"],
         "Count": [total_posts * 5, total_posts * 4, total_posts * 3, total_notifs, total_comments]
     })
-    st.bar_chart(funnel_data.set_index("Stage"))
+    st.bar_chart(funnel_data.set_index("Pipeline Stage"))
